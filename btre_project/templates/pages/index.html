@@ -26,6 +26,16 @@
                     <input type="text" name="city" class="form-control" placeholder="City">
                   </div>
   
+                  <!-- <div class="col-md-4 mb-3">
+                    <label class="sr-only">State</label>
+                    <select name="state" class="form-control">
+                      <option selected="true" disabled="disabled">State (All)</option>
+                      {% for key, value in state_choices.items %}
+                        <option value= " {{ key }}"> {{value}} </option>
+                      {% endfor %}
+                    </select>
+                  </div> -->
+
                   <div class="col-md-4 mb-3">
                     <label class="sr-only">State</label>
                     <select name="state" class="form-control">
@@ -35,6 +45,8 @@
                       {% endfor %}
                     </select>
                   </div>
+
+
                 </div>
                 <!-- Form Row 2 -->
                 <div class="form-row">
@@ -47,6 +59,7 @@
                       {% endfor %}
                     </select>
                   </div>
+
                   <div class="col-md-6 mb-3">
                     <select name="price" class="form-control" id="type">
                       <option selected="true" disabled="disabled">Max Price (Any)</option>
