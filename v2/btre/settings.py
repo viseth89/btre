@@ -80,8 +80,11 @@ WSGI_APPLICATION = 'btre.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'btredv',
+        'USER':'postgres',
+        'PASSWORD':'viseth89',
+        'HOST':'localhost'
     }
 }
 
@@ -125,6 +128,8 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static') # this is the folder that is created when you collectstatic
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static')
 # ]
