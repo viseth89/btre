@@ -1,14 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from .choices import price_choices, bedroom_choices, state_choices
 from .models import Listing
 
 def listings(request):
     # Get Listing Model from DB name as listings
     listings = Listing.objects.order_by('-list_date').filter(is_published=True)
+    
     # Create Paginator variable with listing model and limit of 3 pages
     paginator = Paginator(listings, 3)
+    
     # 'page' is url parameter we are looking for 
     page = request.GET.get('page') 
+    
     # paged_listings created to hold page request --> Need to elaborate here and aboe
     paged_listings = paginator.get_page(page)
 
@@ -18,10 +22,40 @@ def listings(request):
     return render(request, 'listings/listings.html', context)
 
 def listing(request, listing_id):
-    return render(request, 'listings/listing.html')
+    listing = get_object_or_404(Listing, pk=listing_id)
+
+    context={'listing':listing}
+    return render(request, 'listings/listing.html', context)
 
 def search(request):
-    return render(request, 'listings/search.html')
+    listings = Listing.objects.order_by('-list_date').filter(is_published=True)
+
+    # Create Paginator variable with listing model and limit of 3 pages
+    paginator = Paginator(listings, 3)
+    
+    # 'page' is url parameter we are looking for 
+    page = request.GET.get('page') 
+    
+    # paged_listings created to hold page request --> Need to elaborate here and aboe
+    paged_listings = paginator.get_page(page)
+
+    # keywords
+    if 'query' in request.GET:
+        if 'keywords' in request.GET:
+            keywords = request.GET['keywords']
+        if keywords:
+            queryset_list = queryset_list.filter(description__icontains=keywords)
+
+
+    context = { 
+    'listings':listings,
+    'state_choices':state_choices,
+    'bedroom_choices':bedroom_choices,
+    'price_choices':price_choices,
+    'listings':paged_listings
+}
+
+    return render(request, 'listings/search.html', context)
 
 #PAGINATOR
 # 1. -> from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
