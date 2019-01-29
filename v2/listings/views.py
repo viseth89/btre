@@ -13,7 +13,7 @@ def listings(request):
     # 'page' is url parameter we are looking for 
     page = request.GET.get('page') 
     
-    # paged_listings created to hold page request --> Need to elaborate here and aboe
+    # paged_listings created to hold page request
     paged_listings = paginator.get_page(page)
 
     context = {
@@ -32,15 +32,11 @@ def search(request):
 
     # Create Paginator variable with listing model and limit of 3 pages
     paginator = Paginator(listings, 3)
-    
-    # 'page' is url parameter we are looking for 
     page = request.GET.get('page') 
-    
-    # paged_listings created to hold page request --> Need to elaborate here and aboe
     paged_listings = paginator.get_page(page)
 
-    # keywords
-    if 'query' in request.GET:
+    # Keywords in Search
+    if 'query' in request.GET:  # Added in response to error
         if 'keywords' in request.GET:
             keywords = request.GET['keywords']
         if keywords:
